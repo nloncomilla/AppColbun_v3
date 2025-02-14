@@ -1,0 +1,515 @@
+{
+    "id": "CMWS100000000eabfc36",
+    "name": "Los Dominicos 2",
+    "database": {
+        "database_name": "GG_reads",
+        "recents_table": {
+            "name": "Recents",
+            "max_rows": 500000
+        },
+        "history_table": {
+            "name": "History",
+            "max_rows": 5000
+        },
+        "time_period": 60
+    },
+    "lambda_functions": {
+        "GG_execute_tasks": {
+            "db_info": {
+                "db_name": "tasks",
+                "db_table": "Agenda",
+                "db_user": "root",
+                "db_host": "localhost"
+            },
+            "priorities": {
+                "read": 1,
+                "write": 2
+            },
+            "communication_types": {
+                "RTU": {
+                    "lambda_name": "GG_reader_RTU",
+                    "actions": [
+                        "write",
+                        "read"
+                    ],
+                    "action_types": [
+                        "preconfig",
+                        "custom"
+                    ],
+                    "door": 12345
+                },
+                "TCP": {
+                    "lambda_name": "GG_reader_TCP",
+                    "actions": [
+                        "write",
+                        "read"
+                    ],
+                    "action_types": [
+                        "preconfig",
+                        "custom"
+                    ],
+                    "door": 12346
+                }
+            }
+        },
+        "GG_reader_RTU": {
+            "resource": "/dev/ttyAMA2",
+            "schedule": {
+                "context": "mins",
+                "every": 1
+            },
+            "max_tries_per_dev": 1,
+            "max_tries_per_reg": 2,
+            "device_types": {
+                "PM2100": {
+                    "registers": {
+                        "Ea": {
+                            "address": 2699,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "Ea",
+                            "read_function": "read_holding_registers"
+                        },
+                        "Er": {
+                            "address": 2707,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 0.1,
+                            "label": "Er",
+                            "read_function": "read_holding_registers"
+                        },
+                        "Va": {
+                            "address": 3027,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "Va",
+                            "read_function": "read_holding_registers"
+                        },
+                        "Vb": {
+                            "address": 3029,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "Vb",
+                            "read_function": "read_holding_registers"
+                        },
+                        "Vc": {
+                            "address": 3031,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "Vc",
+                            "read_function": "read_holding_registers"
+                        },
+                        "Ia": {
+                            "address": 2999,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "Ia",
+                            "read_function": "read_holding_registers"
+                        },
+                        "Ib": {
+                            "address": 3001,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "Ib",
+                            "read_function": "read_holding_registers"
+                        },
+                        "Ic": {
+                            "address": 3003,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "Ic",
+                            "read_function": "read_holding_registers"
+                        },
+                        "Pa": {
+                            "address": 3053,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "Pa",
+                            "read_function": "read_holding_registers"
+                        },
+                        "Pb": {
+                            "address": 3055,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "Pb",
+                            "read_function": "read_holding_registers"
+                        },
+                        "Pc": {
+                            "address": 3057,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "Pc",
+                            "read_function": "read_holding_registers"
+                        },
+                        "freq": {
+                            "address": 3109,
+                            "count": 2,
+                            "value_format": "32float",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "freq",
+                            "read_function": "read_holding_registers"
+                        }
+                    }
+                },
+                "WP8024ADAM": {
+                    "registers": {
+                        "DI1": {
+                            "address": 0,
+                            "count": 1,
+                            "value_format": "8uint",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "factor": 1,
+                            "label": "DI1",
+                            "read_function": "read_discrete_input"
+                        }
+                    }
+                }
+            },
+            "devices": []
+        },
+        "GG_relay_control": {
+            "communication": "RTU",
+            "port": "/dev/ttyAMA2",
+            "special_days": {
+                "irrenunciables": [
+                    "1-1",
+                    "1-5",
+                    "18-9",
+                    "19-9",
+                    "25-12"
+                ],
+                "ext-inicio": [
+                    "25-1"
+                ],
+                "ext-intermedio": [
+                    "25-1"
+                ],
+                "ext-final": [
+                    "25-1"
+                ],
+                "dia-especial": [
+                    "25-1"
+                ]
+            },
+            "schedule": {
+                "context": "mins",
+                "every": 1
+            },
+            "channel_configs": {
+                "automatico": {
+                    "auto_mode": 1,
+                    "desired_status": 0
+                },
+                "manual_encendido": {
+                    "auto_mode": 0,
+                    "desired_status": 0
+                },
+                "manual_apagado": {
+                    "auto_mode": 0,
+                    "desired_status": 1
+                }
+            },
+            "channel_schedules": {
+                "clima": {
+                    "mon_tue_wed_thu": {
+                        "days": [
+                            1,
+                            2,
+                            3,
+                            4
+                        ],
+                        "on": [
+                            [
+                                "00:00:00",
+                                "07:59:59"
+                            ],
+                            [
+                                "20:00:00",
+                                "23:59:59"
+                            ]
+                        ]
+                    },
+                    "fri_sat_sun": {
+                        "days": [
+                            5,
+                            6,
+                            7
+                        ],
+                        "on": [
+                            [
+                                "00:00:00",
+                                "07:59:59"
+                            ],
+                            [
+                                "19:30:00",
+                                "23:59:59"
+                            ]
+                        ]
+                    }
+                },
+                "iluminacion": {
+                    "mon_tue_wed_thu_fri_sat": {
+                        "days": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6
+                        ],
+                        "on": [
+                            [
+                                "00:00:00",
+                                "08:59:59"
+                            ],
+                            [
+                                "21:30:00",
+                                "23:59:59"
+                            ]
+                        ]
+                    },
+                    "sun": {
+                        "days": [
+                            7
+                        ],
+                        "on": [
+                            [
+                                "00:00:00",
+                                "08:59:59"
+                            ],
+                            [
+                                "21:00:00",
+                                "23:59:59"
+                            ]
+                        ]
+                    }
+                },
+                "ext-clima inicio": {
+                    "on": [
+                        [
+                            "00:00:00",
+                            "07:59:59"
+                        ]
+                    ]
+                },
+                "ext-clima intermedio": {
+                    "on": []
+                },
+                "ext-clima final": {
+                    "on": [
+                        [
+                            "20:00:00",
+                            "23:59:59"
+                        ]
+                    ]
+                },
+                "ext-clima final Vie-Dom": {
+                    "on": [
+                        [
+                            "19:30:00",
+                            "23:59:59"
+                        ]
+                    ]
+                },
+                "esp-clima": {
+                    "on": [
+                        [
+                            "00:00:00",
+                            "07:59:59"
+                        ],
+                        [
+                            "20:00:00",
+                            "23:59:59"
+                        ]
+                    ]
+                }
+            },
+            "device_types": {
+                "waveshare_rtu": {
+                    "registers": {
+                        "relay_channels": {
+                            "value_format": "8uint",
+                            "byteorder_key": "bigendian",
+                            "wordorder_key": "bigendian",
+                            "read_function": "read_coils",
+                            "write_function": "write_coil",
+                            "available_channels": "8"
+                        }
+                    }
+                }
+            },
+            "devices": {
+                "Clima": {
+                    "id": "WSRTURELAYLDO01",
+                    "timeout": 3,
+                    "unit": 1,
+                    "baudrate": 9600,
+                    "stopbits": 1,
+                    "bytesize": 8,
+                    "parity": "N",
+                    "device_type": "waveshare_rtu",
+                    "user_configs": {
+                        "function_status": 1
+                    },
+                    "special_days": {
+                        "A1": {
+                            "day_groups": [
+                                "irrenunciables"
+                            ],
+                            "config_x_relay": {
+                                "grupo1": {
+                                    "config": "manual_apagado",
+                                    "channel_addresses": [
+                                        1,
+                                        2,
+                                        3,
+                                        4,
+                                        5,
+                                        6,
+                                        7,
+                                        8
+                                    ]
+                                }
+                            }
+                        },
+                        "ext inicio": {
+                            "day_groups": [
+                                "ext-inicio"
+                            ],
+                            "config_x_relay": {
+                                "ext inicio": {
+                                    "config": "automatico",
+                                    "channel_addresses": [
+                                        1,
+                                        2,
+                                        3,
+                                        4,
+                                        5,
+                                        6,
+                                        7,
+                                        8
+                                    ],
+                                    "schedule": "ext-clima inicio"
+                                }
+                            }
+                        },
+                        "ext termino": {
+                            "day_groups": [
+                                "ext-intermedio"
+                            ],
+                            "config_x_relay": {
+                                "ext intermedio": {
+                                    "config": "automatico",
+                                    "channel_addresses": [
+                                        1,
+                                        2,
+                                        3,
+                                        4,
+                                        5,
+                                        6,
+                                        7,
+                                        8
+                                    ],
+                                    "schedule": "ext-clima intermedio"
+                                }
+                            }
+                        },
+                        "a4": {
+                            "day_groups": [
+                                "ext-final"
+                            ],
+                            "config_x_relay": {
+                                "ext final": {
+                                    "config": "automatico",
+                                    "channel_addresses": [
+                                        1,
+                                        2,
+                                        3,
+                                        4,
+                                        5,
+                                        6,
+                                        7,
+                                        8
+                                    ],
+                                    "schedule": "ext-clima final"
+                                }
+                            }
+                        },
+                        "a5": {
+                            "day_groups": [
+                                "dia-especial"
+                            ],
+                            "config_x_relay": {
+                                "esp clima": {
+                                    "config": "automatico",
+                                    "channel_addresses": [
+                                        1,
+                                        2,
+                                        3,
+                                        4,
+                                        5,
+                                        6,
+                                        7,
+                                        8
+                                    ],
+                                    "schedule": "esp-clima"
+                                }
+                            }
+                        }
+                    },
+                    "config_x_relay": {
+                        "grupo1": {
+                            "config": "automatico",
+                            "channel_addresses": [
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8
+                            ],
+                            "schedule": "clima"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

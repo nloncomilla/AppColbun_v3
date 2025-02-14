@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulación Unificada</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" defer></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div id="modeSelector" class="mode-selector">
+    <h2>Seleccione la Empresa</h2>
+    <button data-mode="ripley">Ripley</button>
+    <button data-mode="santander">Santander</button>
+    <button data-mode="easy">Easy</button>
+  </div>
+
+  <div id="appContainer" class="app-container" style="display: none;">
+    <header>
+      <div class="header">
+        <a href="#" class="logo-lnk">
+          <img class="logo-dark" src="clickie-grey-and-white-logo.png" alt="logo">
+        </a>
+      </div>
+    </header>
+
+    <nav class="navigation">
+      <ul>
+        <li class="list active">
+          <a href="#">
+            <span class="icon"><ion-icon name="business-outline"></ion-icon></span>
+            <span class="text">Building</span>
+          </a>
+        </li>
+        <li class="list">
+          <a href="#">
+            <span class="icon"><ion-icon name="hardware-chip-outline"></ion-icon></span>
+            <span class="text">Devices</span>
+          </a>
+        </li>
+        <li class="list">
+          <a href="#">
+            <span class="icon"><ion-icon name="today-outline"></ion-icon></span>
+            <span class="text">History</span>
+          </a>
+        </li>
+        <li class="list">
+          <a href="#">
+            <span class="icon"><ion-icon name="bug-outline"></ion-icon></span>
+            <span class="text">Simulation</span>
+          </a>
+        </li>
+        <li class="list">
+          <a href="#">
+            <span class="icon"><ion-icon name="options-outline"></ion-icon></span>
+            <span class="text">JSON</span>
+          </a>
+        </li>
+        <li class="list">
+          <a href="#" id="changeCompany">
+            <span class="icon"><ion-icon name="repeat-outline"></ion-icon></span>
+            <span class="text">Empresa</span>
+          </a>
+        </li>
+        <div class="indicator"></div>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Modal: Building -->
+      <section id="modal-building" class="modal">
+        <div class="modal-content">
+          <button class="modal-close" data-modal="modal-building">&times;</button>
+          <h2>Seleccione un edificio</h2>
+          <input id="building-search" type="text" placeholder="Filtrar edificios...">
+          <select id="building-dropdown" size="6"></select>
+          <h3 id="selected-building">Actual Building:</h3>
+          <a id="building-link" href="#" target="_blank">Ir a Building</a>
+          <div class="fancy-button-container">
+            <button id="btn-enviar-building" class="fancy-button">Elegir Clickiemota</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modal: Devices -->
+      <section id="modal-devices" class="modal">
+        <div class="modal-content">
+          <button class="modal-close" data-modal="modal-devices">&times;</button>
+          <h2>Seleccione una Clickiemota</h2>
+          <table class="devices-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>ID</th>
+                <th>Seleccionar</th>
+              </tr>
+            </thead>
+            <tbody id="clickiemotas-tbody"></tbody>
+          </table>
+          <div class="fancy-button-container">
+            <button id="confirm-clickiemota" class="fancy-button">Seleccionar Clickiemota</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modal: Relés -->
+      <section id="modal-reles" class="modal">
+        <div class="modal-content">
+          <button class="modal-close" data-modal="modal-reles">&times;</button>
+          <h2>Seleccione un Relé</h2>
+          <table class="devices-table">
+            <thead>
+              <tr>
+                <th>Setup Name</th>
+                <th>ID</th>
+                <th>Seleccionar</th>
+              </tr>
+            </thead>
+            <tbody id="reles-tbody"></tbody>
+          </table>
+          <div class="fancy-button-container">
+            <button id="confirm-rele" class="fancy-button">Seleccionar Relé</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modal: Timelines -->
+      <section id="modal-timelines" class="modal">
+        <div class="modal-content">
+          <button class="modal-close" data-modal="modal-timelines">&times;</button>
+          <h2>Seleccione un Timeline del Relé</h2>
+          <table class="devices-table">
+            <thead class="timelines">
+              <tr>
+                <th>Timeline Name</th>
+                <th>ID</th>
+                <th>Plataforma</th>
+              </tr>
+            </thead>
+            <tbody id="timelines-tbody" class="timelines"></tbody>
+          </table>
+          <div class="fancy-button-container">
+            <button id="confirm-timelines" class="fancy-button">Ir a Simulación</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modal: Simulación -->
+      <section id="modal-simulator" class="modal">
+        <div class="modal-content">
+          <button class="modal-close" data-modal="modal-simulator">&times;</button>
+          <h2>Simulación</h2>
+          <div>
+            <h3 id="selected-building2">Actual Building:</h3>
+            <h3 id="selected-cm4">CM4 actual:</h3>
+            <details>
+              <summary>Detalles</summary>
+              <p>Aquí vendrían datos extra o configuración</p>
+            </details>
+          </div>
+          <div class="fancy-button-container" id="simNavButtons">
+            <button class="my-button" id="homeBtn">IR A HOME</button>
+            <button class="my-button" id="mottaConfigBtn">MOTTACONFIG</button>
+            <button class="my-button" id="verJsonBtn">VER JSON</button>
+            <button class="my-button" id="simularBtn">SIMULAR</button>
+          </div>
+          <div id="simul-container" class="simul-container"></div>
+        </div>
+      </section>
+
+      <!-- Modal: JSON -->
+      <section id="modal-json" class="modal">
+        <div class="modal-content">
+          <button class="modal-close" data-modal="modal-json">&times;</button>
+          <h2>JSON de Configuración</h2>
+          <pre id="json-output"></pre>
+          <div class="fancy-button-container">
+            <button id="btnCloseJSON" class="fancy-button fancy-button-danger">Volver al Home</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
