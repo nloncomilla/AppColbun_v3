@@ -1,0 +1,10 @@
+{
+    "name": "Node.js Development",
+    "image": "mcr.microsoft.com/devcontainers/node:18",
+    "features": {
+      "ghcr.io/devcontainers/features/node:1": {}
+    },
+    "forwardPorts": [3000],
+    "postCreateCommand": "npm install"
+  }
+  
